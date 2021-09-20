@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../Card/Card'
 
-function Grid() {
+const Grid = () => {
     return (
         <div>
             <Card />
