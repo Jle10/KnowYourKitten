@@ -1,10 +1,11 @@
 import React from 'react';
+import { MainTitle } from './Title.styles';
 
 const Title = () => {
     return (
-        <h1>
+        <MainTitle data-testid="main-title">
             Know Your Kitten
-        </h1>
+        </MainTitle>
     );
 };
 
