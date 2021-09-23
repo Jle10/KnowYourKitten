@@ -53,7 +53,7 @@ export const CardReadMore = styled.button`
 
 export const CardTooltip = styled.span`
   background-color: #0e91cd;
-  border-radius: 2px;
+  border-radius: 4px;
   color: #fff;
   font-size: 12px;
   left: 0;
@@ -62,6 +62,7 @@ export const CardTooltip = styled.span`
   position: absolute;
   max-width: 400px;
   top: 20px;
+  text-transform: none;
   transition: opacity ease-in .3s;
 
   &:after {

@@ -27,7 +27,7 @@ const Card = ({card}: { card: Fact }) => {
     }, [card]);
 
     function toggleReadMore() {
-        readMore == 'in' ? setReadMore('') : setReadMore('in');
+        readMore === 'in' ? setReadMore('') : setReadMore('in');
     }
 
     return (
@@ -39,7 +39,7 @@ const Card = ({card}: { card: Fact }) => {
                 </span>
                 {card.length > 120 &&
                 <CardReadMore type="button" className={readMore} onClick={toggleReadMore}>
-                    {readMore == 'in' ? 'Read Less' : 'Read More'}
+                    {readMore === 'in' ? 'Read Less' : 'Read More'}
                     <CardTooltip>
                         {card.fact}
                     </CardTooltip>
