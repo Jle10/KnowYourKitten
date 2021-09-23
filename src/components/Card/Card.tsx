@@ -38,9 +38,9 @@ const Card = ({card}: { card: Fact }) => {
                     {card.fact}
                 </span>
                 {card.length > 120 &&
-                <CardReadMore type="button" className={readMore} onClick={toggleReadMore}>
+                <CardReadMore data-testid="card-readmore" type="button" className={readMore} onClick={toggleReadMore}>
                     {readMore === 'in' ? 'Read Less' : 'Read More'}
-                    <CardTooltip>
+                    <CardTooltip data-testid="card-tooltip">
                         {card.fact}
                     </CardTooltip>
                 </CardReadMore>
