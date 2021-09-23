@@ -1,27 +1,31 @@
-import {useState, useEffect, useMemo} from "react";
+import {useState, useCallback, useMemo} from "react";
 import axios from "axios";
 import {Fact, FactsContextData} from "../context/FactsContext";
 
-function useFetchData(url: string): FactsContextData {
+const url = 'https://catfact.ninja/facts?limit=6&max_length=400';
+
+function useFactsContextValue(): FactsContextData {
     const [facts, setFacts] = useState<Fact[]>([]);
     const [done, setDone] = useState(false);
 
-    useEffect(() => {
+    const FetchData = useCallback(() => {
         axios.get(url).then((response) => {
             setFacts(response.data.data);
         }).catch((error) => {
-            throw new Error("Something went wrong fetching the data:" + error)
+            throw new Error("Something went wrong fetching the data:" + error);
         });
         setDone(true);
     }, [setFacts]);
 
+
     return useMemo(() => ({
         facts,
-        done
-    }), [facts, done]);
+        done,
+        FetchData,
+    }), [facts, done, FetchData]);
 }
 
-export default useFetchData;
+export default useFactsContextValue;
 
 
 //Tried Generic Hook to retrieve any kind of data with payloads
@@ -29,7 +33,7 @@ export default useFetchData;
 // import {useState, useEffect, useMemo} from "react";
 // import axios from "axios";
 //
-// function useFetchData<Payload>(url: string): {
+// function useFactsContextValue<Payload>(url: string): {
 //     data: Payload | null;
 //     done: boolean;
 // } {
@@ -52,4 +56,4 @@ export default useFetchData;
 //     }), [data, done]);
 // }
 //
-// export default useFetchData;
+// export default useFactsContextValue;

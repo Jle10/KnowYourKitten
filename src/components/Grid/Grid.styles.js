@@ -8,7 +8,7 @@ export const GridContainer = styled.div`
   margin-bottom: 40px;
   row-gap: 15px;
   width: 90%;
-  z-index: 1;
+  z-index: 2;
 
   @media (min-width: 768px) {
     column-gap: 20px;
