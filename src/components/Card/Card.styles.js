@@ -49,25 +49,6 @@ export const CardReadMore = styled.button`
   box-shadow: none;
   padding: 0;
   text-align: left;
-
-  &:after {
-    content: "";
-    border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
-    border-bottom: 10px solid  #0e91cd;
-    opacity: 0;
-    position: absolute;
-    left: 5px;
-    top: 15px;
-    transition: opacity ease-in .3s;
-  }
-  
-  &:active,
-  &:focus {
-    &:after {
-      opacity: 1;
-    }
-  }
 `;
 
 export const CardTooltip = styled.span`
@@ -82,6 +63,16 @@ export const CardTooltip = styled.span`
   max-width: 400px;
   top: 20px;
   transition: opacity ease-in .3s;
+
+  &:after {
+    content: "";
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid  #0e91cd;
+    left: 5px;
+    position: absolute;
+    top: -5px;
+  }
   
   .in & {
     opacity: 1;
