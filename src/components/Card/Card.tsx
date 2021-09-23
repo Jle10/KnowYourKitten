@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
     CardContainer,
@@ -13,8 +13,9 @@ import axios from "axios";
 
 export const baseUrl = 'https://cataas.com/cat'
 
-const Card = ({card}: {card: Fact}) => {
+const Card = ({card}: { card: Fact }) => {
     const [src, setSrc] = useState('');
+    const [readMore, setReadMore] = useState('')
 
     useEffect(() => {
         const jsonUrl = baseUrl + '?json=true&width=300';
@@ -25,19 +26,25 @@ const Card = ({card}: {card: Fact}) => {
         });
     }, [card]);
 
+    function toggleReadMore() {
+        readMore == 'in' ? setReadMore('') : setReadMore('in');
+    }
+
     return (
         <CardContainer data-testid="card-container">
-            <CardImg src={src} alt="Cat image" width="300px" height="200px" />
+            <CardImg src={src} alt="Cat image" width="300px" height="200px"/>
             <CardFact>
                 <span className="ellipsis">
                     {card.fact}
                 </span>
-                <CardReadMore type="button">
-                    Read More
+                {card.length > 120 &&
+                <CardReadMore type="button" className={readMore} onClick={toggleReadMore}>
+                    {readMore == 'in' ? 'Read Less' : 'Read More'}
                     <CardTooltip>
                         {card.fact}
                     </CardTooltip>
                 </CardReadMore>
+                }
             </CardFact>
         </CardContainer>
     );
