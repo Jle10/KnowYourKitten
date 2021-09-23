@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const Card = () => {
+import {
+    CardContainer,
+    CardImg,
+    CardFact,
+    CardReadMore,
+    CardTooltip
+} from './Card.styles';
+
+import {Fact} from "../../context/FactsContext";
+import axios from "axios";
+
+export const baseUrl = 'https://cataas.com/cat'
+
+const Card = ({card}: {card: Fact}) => {
+    const [src, setSrc] = useState('');
+
+    useEffect(() => {
+        const jsonUrl = baseUrl + '?json=true&width=300';
+        axios.get(jsonUrl).then((response) => {
+            setSrc(baseUrl + '/' + response.data.id);
+        }).catch((error) => {
+            throw new Error("Something went wrong fetching the data:" + error)
+        });
+    }, [card]);
+
     return (
-        <div>
-            <img src="#" alt="img"/>
-            <div>Random text from API</div>
-            <span>Read More</span>
-        </div>
+        <CardContainer data-testid="card-container">
+            <CardImg src={src} alt="Cat image" width="300px" height="200px" />
+            <CardFact>
+                <span className="ellipsis">
+                    {card.fact}
+                </span>
+                <CardReadMore type="button">
+                    Read More
+                    <CardTooltip>
+                        {card.fact}
+                    </CardTooltip>
+                </CardReadMore>
+            </CardFact>
+        </CardContainer>
     );
 };
 
