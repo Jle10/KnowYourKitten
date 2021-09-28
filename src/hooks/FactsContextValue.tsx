@@ -2,15 +2,27 @@ import {useState, useCallback, useMemo} from "react";
 import axios from "axios";
 import {Fact, FactsContextData} from "../context/FactsContext";
 
-const url = 'https://catfact.ninja/facts?limit=6&max_length=400';
+// const url = 'https://catfact.ninja/facts?limit=6&max_length=400';
 
 function useFactsContextValue(): FactsContextData {
     const [facts, setFacts] = useState<Fact[]>([]);
     const [done, setDone] = useState(false);
 
+    function shuffleArray(array: Fact[]): Fact[] {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
+
     const FetchData = useCallback(() => {
-        axios.get(url).then((response) => {
-            setFacts(response.data.data);
+        axios.get('/cats.json').then((response) => {
+            setFacts(shuffleArray(response.data.data.slice(0, 6)));
         }).catch((error) => {
             throw new Error("Something went wrong fetching the data:" + error);
         });
